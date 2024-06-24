@@ -1,0 +1,61 @@
+class GroceryItem:
+    def __init__(self, name, price, shop):
+        self.name = name
+        self.price = price
+        self.shop = shop
+
+    def __str__(self):
+        return f"{self.name} - ${self.price} at {self.shop}"
+
+class GroceryShop:
+    def __init__(self, name):
+        self.name = name
+        self.inventory = []
+
+    def add_item(self, item):
+        self.inventory.append(item)
+
+    def find_item(self, item_name):
+        for item in self.inventory:
+            if item.name == item_name:
+                return item
+        return None
+
+# Sample usage:
+if __name__ == "__main__":
+    # Create three grocery shops
+    coles = GroceryShop("Coles")
+    lidl = GroceryShop("Lidl")
+    woolworths = GroceryShop("Woolworths")
+
+    # Add items to Coles
+    coles.add_item(GroceryItem("Apples", 1.99, "Coles"))
+    coles.add_item(GroceryItem("Bananas", 0.99, "Coles"))
+    coles.add_item(GroceryItem("Milk", 2.49, "Coles"))
+
+    # Add items to Lidl
+    lidl.add_item(GroceryItem("Apples", 2.49, "Lidl"))
+    lidl.add_item(GroceryItem("Bananas", 1.19, "Lidl"))
+    lidl.add_item(GroceryItem("Milk", 2.29, "Lidl"))
+
+    # Add items to Woolworths
+    woolworths.add_item(GroceryItem("Apples", 1.79, "Woolworths"))
+    woolworths.add_item(GroceryItem("Bananas", 0.89, "Woolworths"))
+    woolworths.add_item(GroceryItem("Milk", 2.39, "Woolworths"))
+
+    # Function to compare prices of an item across shops
+    def compare_prices(item_name):
+        item_coles = coles.find_item(item_name)
+        item_lidl = lidl.find_item(item_name)
+        item_woolworths = woolworths.find_item(item_name)
+
+        if item_coles and item_lidl and item_woolworths:
+            print(f"Price comparison for {item_name}:")
+            print(f"{coles.name}: ${item_coles.price}")
+            print(f"{lidl.name}: ${item_lidl.price}")
+            print(f"{woolworths.name}: ${item_woolworths.price}")
+        else:
+            print(f"{item_name} not found in all shops.")
+
+    # Example of comparing prices of Apples
+    compare_prices("Apples")
